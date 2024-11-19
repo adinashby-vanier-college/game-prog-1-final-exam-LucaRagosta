@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=GameOverWorld
+comment0.text=\r\n\ \r\n
+comment1.params=
+comment1.target=GameOverWorld()
+comment1.text=\r\n\ shows\ text\ on\ screen\ and\ plays\ audio\r\n
+comment2.params=message\ x\ y
+comment2.target=void\ showTextWithBigBlackFont(java.lang.String,\ int,\ int)
+comment2.text=\r\n\ details\ of\ text\ on\ screen\ \r\n
+comment3.params=
+comment3.target=void\ started()
+comment3.text=\r\n\ plays\ music,\ \r\n
+comment4.params=
+comment4.target=void\ stopped()
+comment4.text=\r\n\ stops\ music\r\n
+numComments=5

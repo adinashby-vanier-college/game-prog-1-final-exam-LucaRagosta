@@ -1,19 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<class name="Canon" extends="Actor" enable="true" strideversion="1">
+<class name="Canon" extends="Actor" extends-java="Actor" enable="true" strideversion="1">
     <javadoc xml:space="preserve"/>
     <imports>
         <import target="java.util.*" enable="true"/>
         <import target="greenfoot.*" enable="true"/>
     </imports>
     <implements/>
-    <fields/>
-    <constructors/>
-    <methods>
-        <method access="public" type="void" name="act" enable="true">
-            <javadoc xml:space="preserve">Act - do whatever the Canon wants to do. This method is called whenever the 'Act' or 'Run' button gets pressed in the environment.</javadoc>
+    <fields>
+        <variable access="private" type="int" type-java="int" name="shotsFired" enable="true"/>
+        <variable access="private" type="int" type-java="int" name="gunReloadTime" enable="true"/>
+        <variable access="private" type="int" type-java="int" name="reloadDelayCount" enable="true"/>
+        <variable access="private" type="Vector" type-java="Vector" name="acceleration" enable="true"/>
+    </fields>
+    <constructors>
+        <constructor access="public" enable="true">
+            <javadoc xml:space="preserve">Initialise tha Canon (I tried to make it work but it didnt)</javadoc>
             <params/>
             <throws/>
-            <body/>
+            <body>
+                <assign dest="gunReloadTime" dest-java="gunReloadTime" src="20" src-java="20" enable="true"/>
+                <assign dest="reloadDelayCount" dest-java="reloadDelayCount" src="0" src-java="0" enable="true"/>
+                <assign dest="shotsFired" dest-java="shotsFired" src="0" src-java="0" enable="true"/>
+            </body>
+        </constructor>
+    </constructors>
+    <methods>
+        <method access="public" type="void" type-java="void" name="act" enable="true">
+            <javadoc xml:space="preserve"/>
+            <params/>
+            <throws/>
+            <body>
+                <assign dest="reloadDelayCount" dest-java="reloadDelayCount" src="reloadDelayCount+1" src-java="reloadDelayCount + 1" enable="true"/>
+            </body>
+        </method>
+        <method access="public" type="int" type-java="int" name="getShotsFired" enable="true">
+            <javadoc xml:space="preserve"/>
+            <params/>
+            <throws/>
+            <body>
+                <return value="shotsFired" value-java="shotsFired" enable="true"/>
+            </body>
+        </method>
+        <method access="public" type="void" type-java="void" name="setGunReloadTime" enable="true">
+            <javadoc xml:space="preserve"/>
+            <params>
+                <params type="int" type-java="int" name="reloadTime"/>
+            </params>
+            <throws/>
+            <body>
+                <assign dest="gunReloadTime" dest-java="gunReloadTime" src="reloadTime" src-java="reloadTime" enable="true"/>
+            </body>
+        </method>
+        <method access="private" type="void" type-java="void" name="fire" enable="true">
+            <javadoc xml:space="preserve"/>
+            <params/>
+            <throws/>
+            <body>
+                <if condition="reloadDelayCount&gt;=gunReloadTime" condition-java="reloadDelayCount &gt;= gunReloadTime" enable="true">
+                    <ifStatements>
+                        <variable type="CannonBall" type-java="CannonBall" name="b" value="new CannonBall()" value-java=" new CannonBall()" enable="true"/>
+                        <call expression="getWorld().addObject(b,getX(),getY())" expression-java="getWorld().addObject(b, getX(), getY())" enable="true"/>
+                        <assign dest="shotsFired" dest-java="shotsFired" src="shotsFired+1" src-java="shotsFired + 1" enable="true"/>
+                        <assign dest="reloadDelayCount" dest-java="reloadDelayCount" src="0" src-java="0" enable="true"/>
+                    </ifStatements>
+                </if>
+            </body>
         </method>
     </methods>
 </class>
