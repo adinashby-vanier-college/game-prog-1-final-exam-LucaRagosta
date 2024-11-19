@@ -14,5 +14,46 @@ public class Ladybug extends Actor
      */
     public void act()
     {
+        move();
+        win();
+    }
+
+    /**
+     * Initializes the movement in all 4 directions (up and down are for turning
+     */
+    public void move()
+    {
+        if (Greenfoot.isKeyDown("left")) {
+            move(5);
+        }
+        if (Greenfoot.isKeyDown("right")) {
+            move(-5);
+        }
+        if (Greenfoot.isKeyDown("up")) {
+            turn(5);
+        }
+        if (Greenfoot.isKeyDown("down")) {
+            turn(-5);
+        }
+    }
+
+    /**
+     * if they  are intersecting ti ends
+     */
+    public void win()
+    {
+        Actor Ladybug = getOneIntersectingObject(Ladybug.class);
+    }
+
+    /**
+     * transitions to game won world for win
+     */
+    public void transitionToGameWorld()
+    {
+        World crabWorld = getWorld();
+        crabWorld.stopped();
+        World gameWonWorld =  new  GameWonWorld();
+        gameWonWorld.started();
+        Greenfoot.setWorld(gameWonWorld);
     }
 }

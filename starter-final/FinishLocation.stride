@@ -10,10 +10,59 @@
     <constructors/>
     <methods>
         <method access="public" type="void" type-java="void" name="act" enable="true">
-            <javadoc xml:space="preserve">Act - do whatever the FinishLocation wants to do. This method is called whenever the 'Act' or 'Run' button gets pressed in the environment.</javadoc>
+            <javadoc xml:space="preserve">make it so that when the ladybug touches the finishlocation it removes it and initializes a gamewon screen</javadoc>
             <params/>
             <throws/>
-            <body/>
+            <body>
+                <call expression="eatLadybug()" expression-java="eatLadybug()" enable="true"/>
+                <if condition="isGameWon()" condition-java="isGameWon()" enable="true">
+                    <ifStatements>
+                        <call expression="transitionToGameWon()" expression-java="transitionToGameWon()" enable="true"/>
+                    </ifStatements>
+                </if>
+            </body>
+        </method>
+        <method access="public" type="void" type-java="void" name="eatLadybug" enable="true">
+            <javadoc xml:space="preserve">this removes the ladybug from the map</javadoc>
+            <params/>
+            <throws/>
+            <body>
+                <variable type="Actor" type-java="Actor" name="Ladybug" value="getOneIntersectingObject(Ladybug.class)" value-java="getOneIntersectingObject(Ladybug.class)" enable="true"/>
+                <if condition="Ladybug!=null" condition-java="Ladybug != null" enable="true">
+                    <ifStatements>
+                        <variable type="World" type-java="World" name="world" value="getWorld()" value-java="getWorld()" enable="true"/>
+                        <call expression="world.removeObject(Ladybug)" expression-java="world.removeObject(Ladybug)" enable="true"/>
+                    </ifStatements>
+                </if>
+            </body>
+        </method>
+        <method access="public" type="boolean" type-java="boolean" name="isGameWon" enable="true">
+            <javadoc xml:space="preserve">this checks to see if there is a ladybug on the map. If there isnt, then it sets the boolean value to true, leading to the game won screen</javadoc>
+            <params/>
+            <throws/>
+            <body>
+                <variable type="World" type-java="World" name="world" value="getWorld()" value-java="getWorld()" enable="true"/>
+                <if condition="world.getObjects(Ladybug.class).isEmpty()" condition-java="world.getObjects(Ladybug.class).isEmpty()" enable="true">
+                    <ifStatements>
+                        <return value="true" value-java="true" enable="true"/>
+                    </ifStatements>
+                    <else>
+                        <return value="false" value-java="false" enable="true"/>
+                    </else>
+                </if>
+            </body>
+        </method>
+        <method access="public" type="void" type-java="void" name="transitionToGameWon" enable="true">
+            <javadoc xml:space="preserve">Transitions the game to the gamewon screen</javadoc>
+            <params/>
+            <throws/>
+            <body>
+                <variable type="World" type-java="World" name="lobsterWorld" value="getWorld()" value-java="getWorld()" enable="true"/>
+                <call expression="lobsterWorld.stopped()" expression-java="lobsterWorld.stopped()" enable="true"/>
+                <variable type="World" type-java="World" name="gameOverWorld" value="new GameWonWorld()" value-java=" new GameWonWorld()" enable="true"/>
+                <call expression="gameOverWorld.started()" expression-java="gameOverWorld.started()" enable="true"/>
+                <call expression="Greenfoot.setWorld(gameOverWorld)" expression-java="Greenfoot.setWorld(gameOverWorld)" enable="true"/>
+            </body>
         </method>
     </methods>
 </class>
